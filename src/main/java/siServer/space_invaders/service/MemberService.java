@@ -15,4 +15,13 @@ public class MemberService {
     public Member getUserById(int id) {
         return memberRepository.findById(id).orElse(null);
     }
+
+    @Transactional
+    public void join(Member member) {
+        if(memberRepository.findById(member.getId()).isPresent()) {
+            throw new IllegalStateException("이미 존재하는 회원입니다.");
+        }
+
+        memberRepository.save(member);
+    }
 }

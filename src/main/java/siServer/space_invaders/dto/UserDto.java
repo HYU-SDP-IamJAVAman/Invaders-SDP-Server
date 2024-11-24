@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public class UserDto {
 
-    private String username;
+    private String nickname;
 
     private int coin;
 
