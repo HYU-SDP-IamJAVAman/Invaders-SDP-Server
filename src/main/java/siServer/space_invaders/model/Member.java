@@ -13,11 +13,19 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    private String username;
+    private String email;
 
     private String password;
+
+    private String nickname;
 
     private int coin;
 
     private int highestScore;
+
+    public void signUp(String nickname, String email, String password) {
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
+    }
 }

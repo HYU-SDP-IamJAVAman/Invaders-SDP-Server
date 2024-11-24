@@ -8,7 +8,7 @@
 </head>
 <body>
 <div class="login-container">
-    <form class="login-form">
+    <form class="login-form" method="post" th:action="@{/signin}" th:object="${signInForm}">
         <h1>Login</h1>
         <div class="form-group">
             <label for="email">Email</label>
@@ -20,8 +20,7 @@
         </div>
         <button type="submit" class="login-button">Login</button>
         <div class="form-footer">
-            <a href="#">Forgot password?</a>
-            <a href="#">Sign up</a>
+            <a href="/user/signup">Sign up</a>
         </div>
     </form>
 </div>
