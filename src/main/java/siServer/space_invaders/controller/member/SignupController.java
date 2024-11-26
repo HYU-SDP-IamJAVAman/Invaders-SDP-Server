@@ -1,6 +1,7 @@
 package siServer.space_invaders.controller.member;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,9 +13,11 @@ import siServer.space_invaders.dto.SignupForm;
 import siServer.space_invaders.model.Member;
 import siServer.space_invaders.service.MemberService;
 
+
 @Controller
 @RequiredArgsConstructor
 public class SignupController {
+    private final PasswordEncoder passwordEncoder;
     private final MemberService memberService;
     @GetMapping("/user/signup")
     public String signup(Model model) {
@@ -23,7 +26,7 @@ public class SignupController {
     }
 
     @PostMapping("/user/signup")
-    public String signUp(@Validated @ModelAttribute SignupForm signupForm, BindingResult bindingResult) {
+    public String signUp( @Validated @ModelAttribute SignupForm signupForm, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "signup";
         }
@@ -32,9 +35,10 @@ public class SignupController {
             bindingResult.rejectValue("confirmPassword", "unmatchedPassword");
             return "signup";
         }
-
+        String hashPwd = passwordEncoder.encode(signupForm.getPassword());
+        signupForm.setPassword(hashPwd);
         Member member = new Member();
-        member.signUp(signupForm.getNickname(), signupForm.getEmail(), signupForm.getPassword());
+        member.signUp(signupForm.getNickname(), signupForm.getEmail(), hashPwd);
         try {
             memberService.join(member);
         } catch (IllegalStateException e) {
@@ -42,7 +46,7 @@ public class SignupController {
             return "signup";
         }
 
-        return "/index";
+        return "index";
     }
 
 }
