@@ -1,26 +1,11 @@
 package siServer.space_invaders.repositiry;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import siServer.space_invaders.model.Member;
 
 import java.util.Optional;
 
-@Repository
-@RequiredArgsConstructor
-public class MemberRepository {
+public interface MemberRepository extends JpaRepository<Member, Integer> {
+    Optional<Member> findByEmail(String email);
 
-    @PersistenceContext
-    private final EntityManager em;
-
-    public int save(Member member) {
-        em.persist(member);
-        return member.getId();
-    }
-
-    public Optional<Member> findById(int id) {
-        return Optional.ofNullable(em.find(Member.class, id));
-    }
 }

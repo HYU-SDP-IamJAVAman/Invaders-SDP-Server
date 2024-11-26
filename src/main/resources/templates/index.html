@@ -8,11 +8,11 @@
 </head>
 <body>
 <div class="login-container">
-    <form class="login-form" method="post" th:action="@{/signin}" th:object="${signInForm}">
+    <form class="login-form" method="post" th:action="@{/login}" th:object="${signInForm}">
         <h1>Login</h1>
         <div class="form-group">
             <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+            <input type="text" id="email" name="username" placeholder="Enter your email" required>
         </div>
         <div class="form-group">
             <label for="password">Password</label>
