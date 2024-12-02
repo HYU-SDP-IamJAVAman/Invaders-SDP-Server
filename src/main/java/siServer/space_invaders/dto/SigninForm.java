@@ -8,9 +8,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SigninForm {
-    @Email
     @NotBlank
-    private String email;
+    private String username;
 
     @NotBlank
     private String password;
