@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -7,6 +7,12 @@
 <body>
     <h1>ok</h1>
     <p>User Name: <span th:text="${nickname}">Default Name</span></p>
+    <p>User Email: <span th:text="${userEmail}">Default Name</span></p>
+    <p>User SessionId: <span th:text="${sessionId}">Default Name</span></p>
+
+    <li class="nav-item">
+        <a th:href="@{/logout}" class="nav-link" sec:authorize="isAuthenticated()">Logout</a>
+    </li>
 
 </body>
 </html>

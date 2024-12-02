@@ -37,9 +37,9 @@ public class SignupController {
         }
         String hashPwd = passwordEncoder.encode(signupForm.getPassword());
         signupForm.setPassword(hashPwd);
-        Member member = new Member();
-        member.signUp(signupForm.getNickname(), signupForm.getEmail(), hashPwd);
         try {
+            Member member = new Member();
+            member.signUp(signupForm.getNickname(), signupForm.getEmail(), hashPwd);
             memberService.join(member);
         } catch (IllegalStateException e) {
             bindingResult.reject("alreadyExistMember");
