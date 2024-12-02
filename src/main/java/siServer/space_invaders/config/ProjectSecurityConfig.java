@@ -24,10 +24,14 @@ public class ProjectSecurityConfig {
         });
         http.formLogin(flc -> flc.loginPage("/login").
                 defaultSuccessUrl("/userPage",true).failureUrl("/login"));
+
+        http.logout(lcf->lcf.logoutSuccessUrl("/login")
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .deleteCookies("JSESSIONID"));
         http.httpBasic(hbc -> hbc.disable());
         return http.build();
     }
-
 
     @Bean
     public PasswordEncoder passwordEncoder(){
