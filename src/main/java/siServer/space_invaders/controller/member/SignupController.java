@@ -37,6 +37,7 @@ public class SignupController {
         }
         String hashPwd = passwordEncoder.encode(signupForm.getPassword());
         signupForm.setPassword(hashPwd);
+
         try {
             Member member = new Member();
             member.signUp(signupForm.getNickname(), signupForm.getEmail(), hashPwd);

@@ -1,7 +1,9 @@
 package siServer.space_invaders.controller.member;
 
 
+
 import jakarta.servlet.http.HttpServletRequest;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +20,7 @@ public class SigninController {
     private final MemberService memberService;
 
     @GetMapping("/userPage")
+
     public String signin(Model model, Principal principal, HttpServletRequest request){
 
         String username = principal.getName();
@@ -27,6 +30,7 @@ public class SigninController {
         model.addAttribute("nickname", nickname);
         model.addAttribute("userEmail", userEmail);
         model.addAttribute("sessionId", sessionId);
+
 
        return "userPage";
     }
