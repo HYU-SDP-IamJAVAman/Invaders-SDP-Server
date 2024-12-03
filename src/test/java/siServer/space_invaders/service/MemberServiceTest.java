@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import siServer.space_invaders.model.Member;
@@ -30,15 +31,15 @@ class MemberServiceTest {
     void getUserById() {
         Member mockMember = new Member();
         String nickname = "John";
-        String email = "asdf@example.com";
+        String username = "asdf@example.com";
         String password = "1234";
-        mockMember.signUp(nickname, email, password);
+        mockMember.signUp(nickname, username, password);
         when(memberRepository.findById(1)).thenReturn(Optional.of(mockMember));
 
         Member result = memberService.getUserById(1);
 
         assertEquals("John", result.getNickname());
-        assertEquals("asdf@example.com", result.getEmail());
+        assertEquals("asdf@example.com", result.getUsername());
         verify(memberRepository, times(1)).findById(1);
     }
 
@@ -46,9 +47,9 @@ class MemberServiceTest {
     void join() {
         Member mockMember = new Member();
         String nickname = "John";
-        String email = "asdf@example.com";
+        String username = "asdf@example.com";
         String password = "1234";
-        mockMember.signUp(nickname, email, password);
+        mockMember.signUp(nickname, username, password);
 
         memberService.join(mockMember);
 
@@ -61,13 +62,29 @@ class MemberServiceTest {
     void getNicknameByUsername() {
         Member mockMember = new Member();
         String nickname = "John";
-        String email = "asdf@example.com";
+        String username = "asdf@example.com";
         String password = "1234";
-        mockMember.signUp(nickname, email, password);
-        when(memberRepository.findByEmail(email)).thenReturn(Optional.of(mockMember));
+        mockMember.signUp(nickname, username, password);
+        when(memberRepository.findByUsername(username)).thenReturn(Optional.of(mockMember));
 
-        String mockMemberNickname = memberService.getNicknameByUsername(email);
+        String mockMemberNickname = memberService.getNicknameByUsername(username);
 
         assertEquals(mockMemberNickname, nickname);
+    }
+
+    @Test
+    void updateUserState(){
+        String nickname = "testUser";
+        int score = 100;
+        int currentCoin = 50;
+
+        Member existingMember = Mockito.mock(Member.class);
+        when(existingMember.getHighestScore()).thenReturn(80);
+        when(memberRepository.findByNickname(nickname)).thenReturn(Optional.of(existingMember));
+
+        memberService.updateUserState(nickname, score, currentCoin);
+
+        verify(existingMember).update(currentCoin, score);
+        verify(memberRepository, times(1)).findByNickname(nickname);
     }
 }
