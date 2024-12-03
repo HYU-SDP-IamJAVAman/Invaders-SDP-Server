@@ -12,7 +12,7 @@ import siServer.space_invaders.service.MemberService;
 public class MainController {
     private final MemberService memberService;
 
-    @PostMapping("/user/userState")
+    @PostMapping("/user/userData")
     public void updateScoreAndCoin(UserDto scoreAndCoinDto, Model model) {
         model.addAttribute("scoreAndCoinDto", scoreAndCoinDto);
         System.out.println(scoreAndCoinDto.getCoin());
