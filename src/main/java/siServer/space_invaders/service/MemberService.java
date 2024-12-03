@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import siServer.space_invaders.model.Member;
 import siServer.space_invaders.repositiry.MemberRepository;
 
+import java.util.Optional;
+
 
 @Service
 @Transactional(readOnly = true)
@@ -22,7 +24,7 @@ public class MemberService {
         if(memberRepository.findById(member.getId()).isPresent()) {
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
-        if(memberRepository.findByEmail(member.getEmail()).isPresent()){
+        if(memberRepository.findByUsername(member.getUsername()).isPresent()){
             throw new IllegalStateException("이미 존재하는 회원입니다.");
         }
 
@@ -30,8 +32,36 @@ public class MemberService {
     }
 
     public String getNicknameByUsername(String username){
-        return memberRepository.findByEmail(username)
+        return memberRepository.findByUsername(username)
                 .map(Member::getNickname)
                 .orElse("사용자가 없습니다");
     }
+
+    public Integer getCoinByUsername(String  username){
+        return memberRepository.findByUsername(username)
+                .map(Member::getCoin)
+                .orElse(null);
+    }
+
+    public Integer getScoreByUsername(String username){
+        return memberRepository.findByUsername(username)
+                .map(Member::getHighestScore)
+                .orElse(null);
+    }
+
+    public Member login(String username, String password){
+
+        Optional<Member> optionalMember = memberRepository.findByUsername(username);
+
+        if (optionalMember.isPresent()){
+            Member member  = optionalMember.get();
+            if(password.equals(member.getPassword()) ){
+                return   member;
+            }
+
+        }
+        return null;
+    }
+
+
 }

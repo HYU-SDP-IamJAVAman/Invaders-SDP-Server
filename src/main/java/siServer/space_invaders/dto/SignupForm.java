@@ -12,12 +12,8 @@ public class SignupForm {
     private String nickname;
 
     @NotBlank
-    @Email
-    private String email;
+    private String username;
 
     @NotBlank
     private String password;
-
-    @NotBlank
-    private String confirmPassword;
 }
