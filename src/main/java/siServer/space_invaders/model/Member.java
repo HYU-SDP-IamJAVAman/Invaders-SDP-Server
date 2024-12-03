@@ -28,4 +28,9 @@ public class Member {
         this.username = username;
         this.password = password;
     }
+
+    public void update(Integer coin, Integer score){
+        this.coin = coin;
+        this.highestScore = score;
+    }
 }
