@@ -23,6 +23,16 @@ public class Member {
 
     private Integer highestScore;
 
+    private Integer totalPlay;
+
+    private Integer totalScore;
+
+    private Integer maxCombo;
+
+    private Integer currentPerfectStage;
+
+    private Boolean flawlessFailure;
+
     public void signUp(String nickname, String username, String password) {
         this.nickname = nickname;
         this.username = username;

@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import siServer.space_invaders.dto.MemberResponse;
+import siServer.space_invaders.dto.LoginResponse;
 import siServer.space_invaders.service.MemberService;
 
 @Controller
@@ -17,7 +17,7 @@ public class RecordController {
     private final MemberService memberService;
 
     @PostMapping("/userstate")
-    public ResponseEntity<MemberResponse> getMemberRecord(@RequestBody String requestBody){
+    public ResponseEntity<LoginResponse> getMemberRecord(@RequestBody String requestBody){
         String[] memberState = requestBody.split(",");
         memberService.updateUserState(memberState[0],
                 Integer.parseInt(memberState[1]), Integer.parseInt(memberState[2]));
