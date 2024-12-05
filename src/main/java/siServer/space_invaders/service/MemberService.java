@@ -63,5 +63,19 @@ public class MemberService {
         return null;
     }
 
+    @Transactional
+    public void updateUserState(String nickname, int score, int currentCoin) {
+        Optional<Member> optionalMember = memberRepository.findByNickname(nickname);
+
+        if (optionalMember.isPresent()) {
+            Member member = optionalMember.get();
+            if (member.getHighestScore() < score){
+                member.update(currentCoin, score);
+            }else{
+                member.update(currentCoin, member.getHighestScore());
+            }
+        }
+    }
+
 
 }
