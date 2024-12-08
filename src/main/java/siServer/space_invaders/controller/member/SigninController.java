@@ -24,7 +24,7 @@ public class SigninController {
         String username = request[0];
         String password = request[1];
         Member member = memberService.login(username, password);
-        LoginResponse response = new LoginResponse(member.getNickname(), member.getTotalPlay(), member.getTotalScore(), member.getMaxCombo(), member.getCurrentPerfectStage(), member.getFlawlessFailure());
+        LoginResponse response = new LoginResponse(member.getNickname(), member.getCoin(),member.getTotalPlay(), member.getTotalScore(), member.getMaxCombo(), member.getCurrentPerfectStage(), member.getFlawlessFailure());
 
         return new ResponseEntity<>(response, HttpStatus.OK);
     }

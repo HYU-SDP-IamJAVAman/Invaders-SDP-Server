@@ -9,7 +9,7 @@ import lombok.Setter;
 public class LoginResponse {
     private String nickname;
 
-    private String currentCoin;
+    private Integer currentCoin;
 
     private Integer totalPlay;
 
@@ -21,9 +21,10 @@ public class LoginResponse {
 
     private Boolean flawlessFailure;
 
-    public LoginResponse(String nickname, Integer totalPlay, Integer totalScore
+    public LoginResponse(String nickname, Integer currentCoin,Integer totalPlay, Integer totalScore
     , Integer maxCombo, Integer currentPerfectStage, Boolean flawlessFailure) {
         this.nickname = nickname;
+        this.currentCoin = currentCoin;
         this.totalPlay = totalPlay;
         this.totalScore = totalScore;
         this.maxCombo = maxCombo;

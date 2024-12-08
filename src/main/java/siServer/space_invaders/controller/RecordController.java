@@ -17,10 +17,15 @@ public class RecordController {
     private final MemberService memberService;
 
     @PostMapping("/userstate")
-    public ResponseEntity<LoginResponse> getMemberRecord(@RequestBody String requestBody){
+    public ResponseEntity<LoginResponse> updateMember(@RequestBody String requestBody){
         String[] memberState = requestBody.split(",");
+        System.out.println("--------------------");
+        System.out.println(requestBody);
         memberService.updateUserState(memberState[0],
-                Integer.parseInt(memberState[1]), Integer.parseInt(memberState[2]));
+                Integer.parseInt(memberState[1]), Integer.parseInt(memberState[2]),
+                Integer.parseInt(memberState[3]), Integer.parseInt(memberState[4]),
+                Integer.parseInt(memberState[5]), Integer.parseInt(memberState[6]),
+                Boolean.parseBoolean(memberState[7]));
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

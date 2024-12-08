@@ -64,15 +64,15 @@ public class MemberService {
     }
 
     @Transactional
-    public void updateUserState(String nickname, int score, int currentCoin) {
+    public void updateUserState(String nickname, int score, int currentCoin, Integer totalPlay, Integer totalScore, Integer maxCombo, Integer currentPerfectStage, Boolean flawlessFailure) {
         Optional<Member> optionalMember = memberRepository.findByNickname(nickname);
 
         if (optionalMember.isPresent()) {
             Member member = optionalMember.get();
             if (member.getHighestScore() < score){
-                member.update(currentCoin, score);
+                member.update(currentCoin, score, totalPlay, totalScore, maxCombo, currentPerfectStage, flawlessFailure);
             }else{
-                member.update(currentCoin, member.getHighestScore());
+                member.update(currentCoin, member.getHighestScore(), totalPlay, totalScore, maxCombo, currentPerfectStage, flawlessFailure);
             }
         }
     }
